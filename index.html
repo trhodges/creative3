@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TwoSide</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+		<script src="controller.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+
+	<body>
+			
+		<div ng-app="myApp" ng-controller="myCtrl" tabindex="-1" ng-keydown="keypress($event)" class="main-game" cng-autofocus>
+			
+			<div class="header">TwoSide</div>
+			<h2 class="level">Level {{gameLevel + 1}}</h2>
+			<div class="container">
+				<div class="buttons">
+					<button ng-click="moveVertical(-66)">&#9650;</button><br>
+					<button ng-click="moveHorizontal(-66)" class="left">&#9664;</button>
+					<button ng-click="moveHorizontal(66)" class="right">&#9654;</button><br>
+					<button ng-click="moveVertical(66)">&#9660;</button>
+				</div>
+				<div style="display: inline-block; position: relative;background-color: #cccccc">
+					<div class="row" ng-repeat="row in gameBoard track by $index">
+						<div class="block" ng-class="{block0 : col == 0, block1 : col == 1, block2 : col == 2, block3 : col == 3}" ng-repeat="col in row track by $index"></div>
+					</div>
+					<div id="player" ng-style="{'left' : horizontal, 'top' : vertical}"></div>
+					<div id="player2" ng-style="{'left' : horizontal2, 'top' : vertical2}"></div>
+				</div>
+			</div>
+			
+			<br><br>
+			
+			<p class="description">Use the arrow keys (or keyboard arrow keys) to navigate the <span style="color: #bb88bb">purple</span> blob to the <span style="color: #ccbb11">yellow</span> square. The <span style="color: #2288bb">blue</span> blob will always move if possible, but <span style="color: #bb88bb">purple</span> will only move if <span style="color: #2288bb">blue</span> can. Hitting <span style="color: #aa6666">pink</span> squares will reset the game.</p>
+			
+			<a href="Instructions.html" style="text-align:center; margin:auto; display: block;">Detailed Instructions</a>
+			
+			<div class="modal-shadow" ng-if="displayModal"></div>
+			
+			<div class="modal" id="modal" ng-if="displayModal">
+				<p id="victoryMessage">Way to go! You got them all!</p>
+				<button class="play-again-button" ng-click="playAgain()">Play Again</button>
+			</div>
+			
+		</div>
+
+	</body>
+</html>
